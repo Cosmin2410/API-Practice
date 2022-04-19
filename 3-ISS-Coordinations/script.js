@@ -3,8 +3,8 @@ const liveUpdate = () => {
     const response = await fetch('http://api.open-notify.org/iss-now.json');
     const data = await response.json();
     const strucure = `
-    <p> ${data.iss_position.latitude}</p>
-    <p> ${data.iss_position.latitude}</p>`;
+    <p> Latitude: ${data.iss_position.latitude}°</p>
+    <p> Longitude: ${data.iss_position.longitude}°</p>`;
     document.querySelector('body').innerHTML = strucure;
   }, 1000);
 };
