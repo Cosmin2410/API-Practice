@@ -1,55 +1,58 @@
-let body = document.querySelector('body');
+const pokeContainer = document.querySelector('.card-container');
+const pokemonNumber = 100;
 
-let divWrapper = document.createElement('div');
-divWrapper.classList = 'wrapper';
-body.appendChild(divWrapper);
-
-let divCard;
-
-const getPokemonName = async () => {
-  const response = await fetch(
-    'https://pokeapi.co/api/v2/pokemon?limit=200%27/'
-  );
-
-  const data = await response.json();
-  const namesArr = data.results;
-  let structure = '';
-  namesArr.map((values) => {
-    // let p = document.createElement('p');
-    // p.classList = 'text';
-    // p.innerHTML = values.name;
-    // divCard = document.createElement('div');
-    // divCard.classList = 'pokemon-card';
-    // divWrapper.appendChild(divCard);
-    // divCard.appendChild(p);
-    // console.log(values.name);
-  });
-
-  const responseAbility = await fetch('https://pokeapi.co/api/v2/pokemon/1/');
-  const dataAbility = await responseAbility.json();
-  const dataArr = dataAbility.types;
-  // console.log(dataArr[0].type);
-
-  dataArr.forEach((kind) => {
-    console.log(kind.type.name);
-  });
+const fetchPokemons = async () => {
+  for (let i = 1; i <= pokemonNumber; i++) {
+    await getPokemon(i);
+  }
 };
 
-getPokemonName();
+const getPokemon = async (id) => {
+  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  createPokemonCard(data);
+};
 
-// const getPokemonData = async () => {
-// const response = await fetch('https://pokeapi.co/api/v2/pokemon/1/');
-// const data = await response.json();
-// const dataArr = data.types;
+function createPokemonCard(data) {
+  const pokemonCard = document.createElement('div');
+  pokemonCard.classList = 'card';
+  const firstLetterUppercase = data.name[0].toUpperCase() + data.name.slice(1);
 
-// console.log(data.types);
+  weightKg = data.weight.toString();
+  weightLastNum = '.' + weightKg.slice(-1);
+  weightKgFull = weightKg.slice(0, -1) + weightLastNum;
 
-// let structure = '';
-// dataArr.map((values) => {
-//   structure += `<p class="ability"> ${values.type} </p>`;
-// });
-// };
+  pokemonCard.innerHTML = `
+  <div class="img"> 
+   <img class='poke-img' src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${
+     data.id
+   }.svg' /img>
+  </div>
+  <p class="number" >  #${data.id.toString().padStart(3, '0')} </p>
 
-// getPokemonData();
+  <h4> ${firstLetterUppercase} </h4>
 
-// https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg
+  <p class="weight"> Weight: <span>  ${weightKgFull} </span> Kg </p>
+  
+`;
+
+  let ul = document.createElement('ul');
+  pokemonCard.appendChild(ul);
+  pokeContainer.appendChild(pokemonCard);
+
+  getTwoAbilities(data, ul);
+}
+
+function getTwoAbilities(data, ul) {
+  const abilities = data.types;
+  if (abilities.length === 2) {
+    ul.innerHTML = `       
+    <li> ${abilities[0].type.name}  </li>
+    <li> ${abilities[1].type.name} </li>`;
+  } else {
+    ul.innerHTML = `<li> ${abilities[0].type.name} </li>`;
+  }
+}
+
+fetchPokemons();
