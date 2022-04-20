@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+  min-height: 100vh;
+  background-color: #333;
+  color: white;
+  font-size: 1.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+p {
+  margin-bottom: 5px;
+  color: white;
+}
+
+h3 {
+  margin: 0;
+  font-size: 2rem;
+  color: white;
+}
+
+h5 {
+  margin: 10px 0;
+  font-size: 1.5rem;
+  color: white;
+}
+
+li {
+  margin-bottom: 0;
+  color: white;
+}
+
+.meal {
+  margin: 20px 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+button {
+  height: 2.3;
+  width: 10rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: orangered;
+  color: white;
+}
+
+button:hover {
+  background-color: rgb(67, 136, 201);
+}
+
+.videoWrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 25px;
+  height: 0;
+}
+
+.videoWrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
